@@ -7,13 +7,23 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="brand">FundFlow</div>
+    <!-- <header class="header">
       <nav>
         <a href="../index.html" class="nav-link">Home</a>
         <a href="investor-dashboard.html" class="nav-link"
           >Investor Dashboard</a
         >
+        <a href="signup.html" class="nav-link">Sign Up</a>
+        <a href="signin.html" class="nav-link">Sign In</a>
+      </nav>
+    </header> -->
+    <header class="header">
+      <img src="Fund.png" alt="FundFlow Logo" class="brand-logo" />
+
+      <nav>
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
       </nav>
     </header>
 
@@ -25,8 +35,22 @@
       <p id="founderInfo">Founder: John Doe</p>
       <h3>Growth Stats</h3>
       <p id="growthStats">Growth stats go here.</p>
-      <button id="investNowBtn">Invest Now</button>
+      <button id="investNowBtn" class="invest-btn">Invest Now</button>
     </main>
+
+    <!-- Modal for Investment Form -->
+    <div class="modal" id="investmentModal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h2>Invest in <span id="modalStartupName">Startup Name</span></h2>
+        <form id="investmentForm">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <input type="number" placeholder="Investment Amount" required />
+          <button type="submit">Submit Investment</button>
+        </form>
+      </div>
+    </div>
 
     <script src="../app.js"></script>
   </body>
