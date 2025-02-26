@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SME Dashboard - FundFlow</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img src="..\Fund.png" alt="FundFlow Logo" class="brand-logo" />
+      <nav>
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
+      </nav>
+    </header>
+
+    <main class="main-dashboard">
+      <h1 class="investor-dashboard">SME Dashboard</h1>
+
+      <p class="welcome-message">Find potential investors for your startup.</p>
+      <div class="startup-list" id="investorList"></div>
+    </main>
+
+    <script>
+      const investors = [
+        {
+          name: "Alice Johnson",
+          email: "alice@example.com",
+          interest: "Tech Startups",
+        },
+        {
+          name: "Bob Williams",
+          email: "bob@example.com",
+          interest: "E-commerce",
+        },
+        {
+          name: "Charlie Davis",
+          email: "charlie@example.com",
+          interest: "AI & Machine Learning",
+        },
+      ];
+
+      function renderInvestors() {
+        const investorList = document.getElementById("investorList");
+        investorList.innerHTML = "";
+
+        investors.forEach((investor) => {
+          const card = document.createElement("div");
+          card.classList.add("startup-item");
+          card.innerHTML = `
+            <h3>${investor.name}</h3>
+            <p><strong>Email:</strong> ${investor.email}</p>
+            <p><strong>Interest:</strong> ${investor.interest}</p>
+          `;
+          investorList.appendChild(card);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", renderInvestors);
+    </script>
+  </body>
+</html>
