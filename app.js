@@ -161,37 +161,30 @@ document.addEventListener("click", function (e) {
 
 // Open investment form
 function openInvestmentForm(id, name) {
-    console.log("Opening investment form for:", name, "with ID:", id); // Debugging
-
-    // Get modal and show it
-    const modal = document.querySelector(".modal");
+    const modal = document.querySelector("#investmentForm");
     if (modal) {
-        modal.style.display = "flex";
+        modal.style.display = "flex"; // Show the modal
     } else {
-        console.error("Modal not found in the DOM.");
+        console.error("Investment form modal not found in the DOM.");
     }
 
-    // Optional: Populate the form with startup details
+    // Populate the form with startup details
     document.querySelector(".modal-content h2").innerText = `Invest in ${name}`;
-    const investmentFormFields = document.querySelector("#investmentForm"); // Ensure this is correct
+    const investmentFormFields = document.querySelector("#investmentFormFields");
     if (investmentFormFields) {
-        investmentFormFields.setAttribute("data-id", id);
+        investmentFormFields.setAttribute("data-id", id); // Set the startup ID
     } else {
-        console.error("Investment form not found in the DOM.");
+        console.error("Investment form fields not found in the DOM.");
     }
 }
-
 
 // Close investment form
 function closeInvestmentForm() {
-    const modal = document.querySelector(".modal");
+    const modal = document.querySelector("#investmentForm");
     if (modal) {
-        modal.style.display = "none";
+        modal.style.display = "none"; // Hide the modal
     }
 }
-
-
-
 
 // Handle investment
 investmentFormFields.addEventListener("submit", function (e) {
@@ -203,7 +196,27 @@ investmentFormFields.addEventListener("submit", function (e) {
     const selectedStartup = startups.find((s) => s.id == startupId);
 
     alert(`Successfully invested ₹${amount} in ${selectedStartup.name}!`);
-    closeInvestmentForm();
+
+    // Close the investment form modal
+    closeInvestmentForm(); // Call the function to close the modal
+
+    // Show success tick animation
+    const successTick = document.createElement("div");
+    successTick.classList.add("success-tick");
+    successTick.innerHTML = "✔"; // Green tick
+    document.body.appendChild(successTick);
+
+    successTick.style.position = "fixed";
+    successTick.style.top = "50%";
+    successTick.style.left = "50%";
+    successTick.style.transform = "translate(-50%, -50%)";
+    successTick.style.fontSize = "50px";
+    successTick.style.color = "green";
+    successTick.style.animation = "fadeOut 2s ease-in-out";
+
+    setTimeout(() => {
+        successTick.remove();
+    }, 2000);
 });
 
 // Open investment form when clicking Invest button
