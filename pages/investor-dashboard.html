@@ -7,80 +7,45 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <header class="header">
+    <!-- <header class="header">
       <div class="brand">FundFlow</div>
+      <nav><a href="../index.html" class="nav-link">Home</a></nav>
+    </header> -->
+    <header class="header">
+      <img src="..\Fund.png" alt="FundFlow Logo" class="brand-logo" />
+
       <nav>
         <a href="../index.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
       </nav>
     </header>
 
     <main class="main-dashboard">
-      <h1>Investor Dashboard</h1>
+      <h1 class="investor-dashboard">Investor Dashboard</h1>
       <div class="welcome-message"></div>
-      <div class="startup-list">
-        <div class="startup-item startup-box">
-          <h3>1️⃣ AgriTech Solutions - Smart Farming for the Future</h3>
-          <p class="short-description">
-            A tech-driven solution that helps farmers optimize crop yields using
-            AI-powered analytics and IoT sensors.
-          </p>
-          <button
-            class="description-btn read-more-btn"
-            onclick="toggleDescription(this)"
-            data-id="1"
-          >
-            Description
-          </button>
-          <button class="invest-btn" data-id="1">Invest</button>
-          <div class="expanded-description hidden">
-            <p class="long-description">
-              This startup focuses on integrating technology into agriculture,
-              providing farmers with tools to enhance productivity and
-              sustainability. By utilizing data analytics and IoT devices,
-              AgriTech Solutions aims to revolutionize farming practices.
-            </p>
-          </div>
-        </div>
-        <div class="startup-item">
-          <h3>
-            2️⃣ GreenKart - Sustainable E-Commerce for Eco-friendly Products
-          </h3>
-          <p>
-            An online marketplace that exclusively sells eco-friendly,
-            plastic-free, and biodegradable consumer products.
-          </p>
-          <button class="description-btn" data-id="2">Description</button>
-          <button class="invest-btn" data-id="2">Invest</button>
-          <div class="expanded-description hidden">
-            <p>
-              GreenKart is committed to promoting sustainable living by offering
-              a wide range of eco-friendly products. The platform connects
-              consumers with brands that prioritize environmental
-              responsibility, making it easier to shop sustainably.
-            </p>
-          </div>
-        </div>
-        <div class="startup-item">
-          <h3>
-            3️⃣ SkillHive - A Microlearning Platform for Blue-Collar Workforce
-          </h3>
-          <p>
-            A mobile-first microlearning platform that upskills blue-collar
-            workers through bite-sized, industry-specific training courses.
-          </p>
-          <button class="description-btn" data-id="3">Description</button>
-          <button class="invest-btn" data-id="3">Invest</button>
-          <div class="expanded-description hidden">
-            <p>
-              SkillHive aims to empower blue-collar workers by providing
-              accessible training resources. The platform offers short, focused
-              courses that can be completed on mobile devices, making learning
-              convenient and effective.
-            </p>
-          </div>
-        </div>
-      </div>
+      <div class="startup-list"></div>
     </main>
+
+    <div id="investmentForm" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeInvestmentForm()">&times;</span>
+        <h2 id="startupName"></h2>
+        <form id="investmentFormFields">
+          <label for="investorName">Name:</label>
+          <input type="text" id="investorName" required />
+
+          <label for="investorEmail">Email:</label>
+          <input type="email" id="investorEmail" required />
+
+          <label for="investmentAmount">Investment Amount:</label>
+          <input type="number" id="investmentAmount" min="1" required />
+
+          <button type="submit">Confirm Investment</button>
+        </form>
+      </div>
+    </div>
+    <div class="success-tick">✔️</div>
 
     <script src="../app.js"></script>
   </body>
