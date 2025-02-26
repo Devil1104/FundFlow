@@ -12,7 +12,9 @@ const investmentFormFields = document.getElementById("investmentFormFields");
 
 // Show/Hide Modal Functions
 function showModal() {
-    authModal.style.display = "block";
+    authModal.style.display = "flex";
+    signInForm.classList.remove("hidden");
+    signUpForm.classList.add("hidden");
 }
 
 function hideModal() {
@@ -31,6 +33,70 @@ function showSignIn() {
 }
 
 // Form Submission Handlers
+// function handleSignIn(e) {
+//     e.preventDefault();
+//     const email = signInForm.querySelector('input[type="email"]').value;
+//     const password = signInForm.querySelector('input[type="password"]').value;
+
+//     const userData = JSON.parse(localStorage.getItem("userData"));
+
+//     if (userData && userData.email === email && userData.password === password) {
+//         alert("Sign In successful!");
+//         localStorage.setItem("isAuthenticated", true);
+//         window.location.href = "pages/investor-dashboard.html";
+//     } else {
+//         alert("Invalid email or password.");
+//     }
+// }
+
+// function handleSignIn(e) {
+//     e.preventDefault();
+//     const email = signInForm.querySelector('input[type="email"]').value;
+//     const password = signInForm.querySelector('input[type="password"]').value;
+
+//     const userData = JSON.parse(localStorage.getItem("userData"));
+
+//     if (userData && userData.email === email && userData.password === password) {
+        
+//         localStorage.setItem("isAuthenticated", "true"); // Store authentication status
+
+//         // Redirect to the correct dashboard based on user type (Modify as needed)
+//         window.location.href = "pages/investor-dashboard.html"; 
+//     } else {
+//         alert("Invalid email or password.");
+//     }
+// }
+
+
+// function handleSignUp(e) {
+//     e.preventDefault();
+//     const name = signUpForm.querySelector('input[type="text"]').value;
+//     const email = signUpForm.querySelector('input[type="email"]').value;
+//     const password = signUpForm.querySelector('input[type="password"]').value;
+
+//     const userData = { name, email, password };
+//     localStorage.setItem("userData", JSON.stringify(userData));
+
+//     alert("Sign Up successful! Please sign in.");
+//     hideModal();
+// }
+
+function handleSignUp(e) {
+    e.preventDefault();
+    const name = signUpForm.querySelector('input[type="text"]').value;
+    const email = signUpForm.querySelector('input[type="email"]').value;
+    const password = signUpForm.querySelector('input[type="password"]').value;
+    const selectedRole = document.querySelector('input[name="role"]:checked')?.value;
+
+    const userData = { name, email, password, selectedRole};
+    
+    localStorage.setItem("userData", JSON.stringify(userData));
+
+    alert("Sign Up successful! Please sign in.");
+    hideModal();
+}
+
+
 function handleSignIn(e) {
     e.preventDefault();
     const email = signInForm.querySelector('input[type="email"]').value;
@@ -39,30 +105,70 @@ function handleSignIn(e) {
     const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (userData && userData.email === email && userData.password === password) {
+        localStorage.setItem("isAuthenticated", "true");
         alert("Sign In successful!");
-        localStorage.setItem("isAuthenticated", true);
-        window.location.href = "pages/investor-dashboard.html";
+
+        // Redirect based on user role
+        if (userData.selectedRole === "investor") {
+            window.location.href = "pages/investor-dashboard.html";
+        } else if (userData.selectedRole === "sme") {
+            window.location.href = "pages/sme-dashboard.html";
+        }
     } else {
         alert("Invalid email or password.");
     }
 }
 
-function handleSignUp(e) {
-    e.preventDefault();
-    const name = signUpForm.querySelector('input[type="text"]').value;
-    const email = signUpForm.querySelector('input[type="email"]').value;
-    const password = signUpForm.querySelector('input[type="password"]').value;
-
-    const userData = { name, email, password };
-    localStorage.setItem("userData", JSON.stringify(userData));
-
-    alert("Sign Up successful! Please sign in.");
-    hideModal();
-}
 
 // Event Listeners
-investorDashboard?.addEventListener("click", showModal);
-smeDashboard?.addEventListener("click", showModal);
+investorDashboard?.addEventListener("click", function () {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    if (isAuthenticated && userData?.role === "investor") {
+        window.location.href = "pages/investor-dashboard.html";
+    } else {
+        // alert("Please sign in as an Investor to access this dashboard.");
+        showModal(); // Show login/signup modal
+    }
+});
+
+smeDashboard?.addEventListener("click", function () {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    if (isAuthenticated && userData?.role === "sme") {
+        window.location.href = "pages/sme-dashboard.html";
+    } else {
+        // alert("Please sign in as an SME to access this dashboard.");
+        showModal(); // Show login/signup modal
+    }
+});
+
+// Function to check authentication before accessing dashboards
+// Event listeners for dashboard access buttons
+
+investorDashboard?.addEventListener("click", function () {
+    accessDashboard("investor");
+});
+
+smeDashboard?.addEventListener("click", function () {
+    accessDashboard("sme");
+});
+
+function logout() {
+    // localStorage.removeItem("isAuthenticated");
+    // localStorage.removeItem("userData");
+    alert("You have been logged out.");
+    window.location.href = "../index.html"; // Redirect to home/login page
+}
+
+// Attach event listener
+document.getElementById("logoutButton")?.addEventListener("click", logout);
+
+
+
+
 closeBtn?.addEventListener("click", hideModal);
 showSignUpLink?.addEventListener("click", showSignUp);
 showSignInLink?.addEventListener("click", showSignIn);
